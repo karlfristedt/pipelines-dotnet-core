@@ -14,8 +14,6 @@ steps:
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     dotnet restore
     dotnet tool install -g dotnetsay
-
-- script: dotnetsay
     
 - task: PublishTestResults@2
   inputs:
@@ -29,3 +27,9 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+    
+ - task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
