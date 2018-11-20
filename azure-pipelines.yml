@@ -14,7 +14,7 @@ steps:
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     dotnet restore
     dotnet tool install -g dotnetsay
-    dotnetsay
+    
     
 - task: PublishTestResults@2
   inputs:
