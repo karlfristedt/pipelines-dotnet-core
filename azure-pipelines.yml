@@ -14,7 +14,8 @@ steps:
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     dotnet restore
     dotnet tool install -g dotnetsay
-    
+
+- script: dotnetsay
     
 - task: PublishTestResults@2
   inputs:
@@ -22,3 +23,9 @@ steps:
     testResultsFiles: '**/*.trx'
 
 - task: PublishBuildArtifacts@1
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
